@@ -49,7 +49,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             List<Employee> employees = new ArrayList<>();
             while (resultSet.next()) {
                 Employee employee = new Employee();
-                employee.setId(resultSet.getInt("id"));
+                //employee.setId(resultSet.getInt("id"));
                 employee.setFirstName(resultSet.getString("firstname"));
                 employee.setLastName(resultSet.getString("lastname"));
 //                becuase we don't like NullPointerExceptions we have to
@@ -89,7 +89,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             ResultSet resultSet = preparedStatement.getResultSet();
             resultSet.next();
             Employee employee = new Employee();
-            employee.setId(resultSet.getInt("id"));
+            //employee.setId(resultSet.getInt("id"));
             employee.setFirstName(resultSet.getString("firstname"));
             employee.setLastName(resultSet.getString("lastname"));
             if(resultSet.getString("profession") != null){

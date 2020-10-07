@@ -1,8 +1,12 @@
 package be.vdabbeele.Employee.Domain;
 
-public class Employee {
-    private static final long serialVersionUID = 1L;
+import javax.persistence.*;
 
+@NamedQuery(name = "getAllEmployees",query = "select e from Employee as e")
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String firstName;
     private String lastName;
@@ -11,9 +15,6 @@ public class Employee {
     public Employee() {
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public Profession getProfession() {
         return profession;
@@ -25,10 +26,6 @@ public class Employee {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -45,5 +42,15 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", profession=" + profession +
+                '}';
     }
 }

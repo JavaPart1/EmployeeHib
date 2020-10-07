@@ -1,7 +1,9 @@
 package be.vdabbeele.Employee.Controllers;
 
 import be.vdabbeele.Employee.Domain.Employee;
+import be.vdabbeele.Employee.Repositories.EmployeeHib;
 import be.vdabbeele.Employee.Services.EmployeeService;
+import be.vdabbeele.Employee.Services.EmployeeServiceHib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,8 @@ public class EmployeeController {
      */
     @Qualifier("empService")
     @Autowired
-    EmployeeService employeeService;
+    EmployeeServiceHib employeeService;
+    //EmployeeService employeeService;
 
     @Qualifier("hrService")
     @Autowired
