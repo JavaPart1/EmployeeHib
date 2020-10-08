@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: common_header(~{::title},~{})">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Employee</title>
 
 </head>
 <body>
@@ -13,6 +13,7 @@
             <label for="firstName">First name</label>
             <!--${employee.firstName} is to show the values of the object employee in our ModelMap-->
             <input type="text" class="form-control" id="firstName" name="firstName" th:value="${employee.firstName}">
+<!--            <input type="hidden" id="employeeid" name="id" th:value="${employee.id}">-->
         </div>
         <div class="form-group">
             <label for="lastName">Last name</label>

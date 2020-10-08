@@ -3,6 +3,7 @@ package be.vdabbeele.Employee.Domain;
 import javax.persistence.*;
 
 @NamedQuery(name = "getAllEmployees",query = "select e from Employee as e")
+@NamedQuery(name = "getEmployeeById",query = "select e from Employee as e where e.id=:empid")
 @Entity
 public class Employee {
     @Id
@@ -26,6 +27,10 @@ public class Employee {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

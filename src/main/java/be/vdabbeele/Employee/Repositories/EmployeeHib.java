@@ -52,7 +52,33 @@ public class EmployeeHib {
             if (emf != null) emf.close();
             return employees;
         }
+    }
 
+    public void deleteById(int id) {
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("mysqlcontainer");
+            em = emf.createEntityManager();
+            EntityTransaction tx = em.getTransaction();
+            // Get employee by ID
+            TypedQuery<Employee> queryEmp = em.createNamedQuery("getEmployeeById", Employee.class);
+            queryEmp.setParameter("empid",id);
+            tx.begin();
+            Employee employee = queryEmp.getSingleResult();
+            tx.commit();
+            // Remove employee
+            tx.begin();
+            em.remove(employee);
+            tx.commit();
+        } catch (Exception exception){
+            System.out.println(exception.getMessage().toString());
+            System.out.println("Delete is not executed");
+        } finally {
+            if (em != null) em.close();
+            if (emf != null) emf.close();
+        }
     }
 
     public List<Profession> getProfessions() {
@@ -61,13 +87,60 @@ public class EmployeeHib {
     }
 
     public Employee findById(int id) {
-        return null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        Employee employee = new Employee();
+
+        try {
+            emf = Persistence.createEntityManagerFactory("mysqlcontainer");
+            em = emf.createEntityManager();
+            EntityTransaction tx = em.getTransaction();
+            // Get employee by ID
+            TypedQuery<Employee> queryEmp = em.createNamedQuery("getEmployeeById", Employee.class);
+            queryEmp.setParameter("empid",id);
+            tx.begin();
+            employee = queryEmp.getSingleResult();
+            tx.commit();
+        } catch (Exception exception){
+            System.out.println(exception.getMessage().toString());
+            System.out.println("Delete is not executed");
+        } finally {
+            if (em != null) em.close();
+            if (emf != null) emf.close();
+            return employee;
+        }
     }
 
-    public void deleteById(int id) {
-        return;
-    }
+    public void update(Employee newemployee) {
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
 
-    public void update(Employee employee) {
+        try {
+            System.out.println("Entering update Hib");
+            System.out.println("New employee: " + newemployee.toString());
+            emf = Persistence.createEntityManagerFactory("mysqlcontainer");
+            em = emf.createEntityManager();
+            EntityTransaction tx = em.getTransaction();
+            // Get employee by ID
+            TypedQuery<Employee> queryEmp = em.createNamedQuery("getEmployeeById", Employee.class);
+            queryEmp.setParameter("empid",newemployee.getId());
+            tx.begin();
+            Employee oldemployee = queryEmp.getSingleResult();
+            tx.commit();
+            System.out.println("Old employee: " + oldemployee.toString());
+            // Update employee in persistence area
+            tx.begin();
+            oldemployee.setFirstName(newemployee.getFirstName());
+            oldemployee.setLastName(newemployee.getLastName());
+            oldemployee.setProfession(newemployee.getProfession());
+            tx.commit();
+            System.out.println("Update executed");
+        } catch (Exception exception){
+            System.out.println(exception.getMessage().toString());
+            System.out.println("Update is not executed");
+        } finally {
+            if (em != null) em.close();
+            if (emf != null) emf.close();
+        }
     }
 }

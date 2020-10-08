@@ -64,7 +64,9 @@ public class EmployeeController {
      */
     @GetMapping("/{id}/edit") // <---- Creates url in the form of localhost:port/employee/{id}/edit
     public ModelAndView showEditPage(@PathVariable("id") int id, ModelMap modelMap) {
-        modelMap.addAttribute("employee", employeeService.findById(id));
+        Employee employee = employeeService.findById(id);
+        modelMap.addAttribute("employee", employee);
+        modelMap.addAttribute("empid",employee.getId());
         modelMap.addAttribute("professions", employeeService.getProfessions());
         return new ModelAndView("editEmployee", modelMap);
     }
@@ -83,7 +85,8 @@ public class EmployeeController {
     //  * POST means that the browser will send some information (see on https://en.wikipedia.org/wiki/POST_(HTTP) for more information)
     // so @ModelAttribute is the object that would be sended by our browser
     @PostMapping("/edit")
-    public ModelAndView save(@ModelAttribute Employee employee) {
+    public ModelAndView save(@ModelAttribute Employee employee,@ModelAttribute int empid) {
+        employee.setId(empid);
         employeeService.update(employee);
         return new ModelAndView("redirect:/employee/getAllEmployees");
     }
