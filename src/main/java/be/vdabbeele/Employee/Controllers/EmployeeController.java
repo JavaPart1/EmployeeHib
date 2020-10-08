@@ -85,8 +85,8 @@ public class EmployeeController {
     //  * POST means that the browser will send some information (see on https://en.wikipedia.org/wiki/POST_(HTTP) for more information)
     // so @ModelAttribute is the object that would be sended by our browser
     @PostMapping("/edit")
-    public ModelAndView save(@ModelAttribute Employee employee,@ModelAttribute int empid) {
-        employee.setId(empid);
+    public ModelAndView save(@ModelAttribute Employee employee) {
+        System.out.println("modelmap");
         employeeService.update(employee);
         return new ModelAndView("redirect:/employee/getAllEmployees");
     }
